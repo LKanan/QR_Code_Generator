@@ -4,6 +4,7 @@ import qrcode
 from qrcode.constants import ERROR_CORRECT_L, ERROR_CORRECT_H
 from PIL import Image
 ```
+**On peut installer la librairie qrcode avec ses dependance de la bibliotheque PIL en executant la commande `pip install qrcode[pil]`**
 ## Pour generer un QR code basic en python on peut utiliser le code:
 ```
 import qrcode
