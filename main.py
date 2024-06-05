@@ -6,7 +6,7 @@ from PIL import Image
 def create_simple_qr_code(data: str):
     # Create a QRCode instance
     qr_code_img = qrcode.make(data)
-    qr_code_img.save("qr_code.png")
+    qr_code_img.save("image_qr_code/qr_code.png")
 
 
 def create_svg_qr_code(data: str):
@@ -19,7 +19,7 @@ def create_svg_qr_code(data: str):
 
     # image_factory : permet de définir le type de l'image générée (par défaut c'est un objet Image de la bibliothèque PIL) mais on peut utiliser un autre type d'image comme SVGImage ou SVGPathImage ou Image de la bibliothèque Pillow ou autre
     qr_code_img = qr_code.make_image(image_factory=qrcode.image.svg.SvgImage)
-    qr_code_img.save("qrcode.svg")
+    qr_code_img.save("image_qr_code/qrcode.svg")
 
 
 def create_png_qr_code(data: str):
@@ -56,7 +56,7 @@ def create_png_qr_code(data: str):
     # image_factory : permet de définir le type de l'image générée (par défaut c'est un objet Image de la bibliothèque
     # PIL) mais on peut utiliser un autre type d'image comme SVGImage ou SVGPathImage ou Image de la bibliothèque Pillow ou autre
     qr_code_img = qr_code.make_image(fill_color="blue", back_color="white")
-    qr_code_img.save("qrcode.png")
+    qr_code_img.save("image_qr_code/qrcode.png")
 
 
 def create_png_qr_code_with_logo_inside(data: str):
@@ -78,7 +78,7 @@ def create_png_qr_code_with_logo_inside(data: str):
         'RGB')  # Générer l'image du QR Code
     pos = ((qr_code_img.size[0] - logo.size[0]) // 2, (qr_code_img.size[1] - logo.size[1]) // 2)  # Position du logo
     qr_code_img.paste(logo, pos)  # Coller le logo sur l'image du QR Code
-    qr_code_img.save("qrcode_with_logo.png")  # Enregistrer l'image du QR Code avec le logo
+    qr_code_img.save("image_qr_code/imgrcode_with_logo.png")  # Enregistrer l'image du QR Code avec le logo
     # print(float(logo.size[0]))
 
 create_png_qr_code_with_logo_inside("QR Code avec logo")
