@@ -1,5 +1,10 @@
+**Pour les bibliotheques à importer pour toutes ces fonction on aura**
+```
+import qrcode
+from qrcode.constants import ERROR_CORRECT_L, ERROR_CORRECT_H
+from PIL import Image
+```
 ## Pour generer un QR code basic en python on peut utiliser le code:
-
 ```
 import qrcode
 
@@ -42,4 +47,27 @@ qr_code.make(fit=True)
 # image_factory : permet de définir le type de l'image générée (par défaut c'est un objet Image de la bibliothèque PIL) mais on peut utiliser un autre type d'image comme SVGImage ou SVGPathImage ou Image de la bibliothèque Pillow ou autre
 qr_code_img=qr_code.make_image(image_factory=qrcode.image.svg.SvgImage)
 qr_code_img.save("qrcode.svg")
+```
+
+## Si on veut inserer une image au milieu du QR code on va utiliser la bibliotheque PIL qui va nous permettre de fusionner deux images dont  le qr code et l'image:
+```
+logo = Image.open('logo.jpeg')
+    # base_width est la largeur de l'image du QR Code en pixel et on choisit ici 75 pixels
+    base_width = 75
+    # logo_width_percent est le pourcentage de la largeur de l'image du QR Code que va occuper le logo et on choisit ici
+    # 20% parce que le logo doit être petit pour ne pas gêner la lecture du QR Code et le 20% est une valeur qui a été
+    # testée et qui donne un bon résultat et on peut choisir une autre valeur si on veut mais il faut faire des tests
+    # pour voir le résultat, logo.size[0] est la largeur du logo en pixel 0 est l'indice de la largeur dans le tuple
+    # size qui contient la largeur et la hauteur du logo
+    w_percent = (base_width / float(logo.size[0]))
+    h_size = int((float(logo.size[1]) * float(w_percent)))
+    logo = logo.resize((base_width, h_size))  # Redimensionner le logo
+    qr_code = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=1)  # Créer un objet QRCode
+    qr_code.add_data(data)  # Ajouter les données à encoder
+    qr_code.make(fit=True)  # Générer le QR Code
+    qr_code_img = qr_code.make_image(fill_color="black", back_color="white").convert(
+        'RGB')  # Générer l'image du QR Code
+    pos = ((qr_code_img.size[0] - logo.size[0]) // 2, (qr_code_img.size[1] - logo.size[1]) // 2)  # Position du logo
+    qr_code_img.paste(logo, pos)  # Coller le logo sur l'image du QR Code
+    qr_code_img.save("qrcode_with_logo.png")  # Enregistrer l'image du QR Code avec le logo
 ```
